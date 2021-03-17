@@ -1,0 +1,25 @@
+{:duct.profile/base
+ {:duct.core/project-ns session
+
+  :duct.router/ataraxy
+  {:routes {[:get "/"] ^:auth-middleware [:session.handler.index/home]
+            "/login"
+            {:get [:session.handler.index/login]
+             [:post] [:session.handler.index/login-authenticate]}
+            [:get "/logout"] [:session.handler.index/logout]}
+   :middleware {:auth-middleware #ig/ref :session.handler.index/session-auth}}
+
+  :session.handler.index/session-auth {}
+
+  :session.handler.index/home {}
+  :session.handler.index/login {}
+  :session.handler.index/login-authenticate {}
+  :session.handler.index/logout {}}
+
+ :duct.profile/dev   #duct/include "dev"
+ :duct.profile/local #duct/include "local"
+ :duct.profile/prod  {}
+
+ :duct.module/logging {}
+ :duct.module.web/site
+ {}}
